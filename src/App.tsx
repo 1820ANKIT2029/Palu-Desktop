@@ -16,7 +16,6 @@ function App() {
       </ControlLayer>
       <Toaster />
     </QueryClientProvider>
-    
   )
 }
 

@@ -19,6 +19,8 @@ export const fetchUserProfile = async (clerkId:string) => {
     },
   })
 
+  console.log(response.data)
+
   return response.data
 }
 

@@ -26,30 +26,36 @@ const Widget = () => {
                 lastname: string | null
                 createdAt: Date
                 clerkId: string
+                firstView: boolean
+                image: string | null
             })
           | null
     } | null>(null);
       
     const {user} = useUser()
     const { state, fetchMediaResources } = useMediaSources()
-    console
 
     useEffect(() => {
         if(user && user.id){
             fetchUserProfile(user.id).then((p)=> setProfile(p))
+            fetchMediaResources()
         }
     }, [user])
 
     return (
-        <div className="p-5">
+        <div className="p-5 bg-orange">
             <ClerkLoading>
                 <div className="h-full flex justify-center items-center">
                     <Loader />
                 </div>
             </ClerkLoading>
+
             <SignedIn>
                 {profile ? (
-                    <MediaConfiguration user={profile?.user} state={state} />
+                    <MediaConfiguration 
+                        user={profile?.user} 
+                        state={state} 
+                    />
                 ) : (
                     <div className="w-full h-full justify-center items=center ">
                         <Loader color="#fff"/>
