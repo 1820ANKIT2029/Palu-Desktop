@@ -6,7 +6,7 @@ A feature-rich video recording, screen capturing, and sharing application inspir
 This Palu has three components:
 - [**Palu-Web**][1] (for video and workspace management)
 - [**Palu-Desktop**][2] (for video recording)
-- [**Palu-Express**][3] (for real time video processing and storaging in S3)
+- [**Palu-Express**][3] (for real time video processing and storing in S3)
 
 ## Features
 
