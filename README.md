@@ -1,30 +1,66 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Palu-Desktop
 
-Currently, two official plugins are available:
+A feature-rich video recording, screen capturing, and sharing application inspired by Loom. This project allows users to record their screens, webcam, or both simultaneously, edit videos, and share them easily via links.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This Palu has three components:
+- [**Palu-Web**][1] (for video and workspace management)
+- [**Palu-Desktop**][2] (for video recording)
+- [**Palu-Express**][3] (for real time video processing and storaging in S3)
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Screen Recording**: Record your entire screen, specific application windows, or browser tabs.
+- **Webcam Recording**: Capture video directly from your webcam.
+- **Audio Recording**: Support for system audio, microphone input, or both.
+- **Video Editing**: Basic editing features like trimming, cropping, and adding captions.
+- **Sharing**: Generate shareable links for recorded videos.
+- **Cloud Storage**: Store videos securely in the cloud.
+- **User Authentication**: Sign up, log in, and manage accounts securely.
+- **Real-Time Notifications**: Notify users when their videos are processed and ready to share.
 
-- Configure the top-level `parserOptions` property like this:
+## Tech Stack
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- **Framework**: Electron.js, React.js + vite
+- **Styling**: Tailwind CSS
+- **Authentication**: Clerk
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Installation
+
+### Prerequisites
+- Node.js (v16 or higher)
+
+### Steps
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/1820ANKIT2029/Palu-Desktop.git
+   cd Palu-Desktop
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Set up environment variables:
+   Create a `.env` file in the root directory and add the api key as in .env.example.
+
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+## Usage
+
+1. Log in or sign up.
+2. Start a new recording by choosing screen, webcam, or both.
+3. Edit your video after recording.
+
+---
+
+Happy Recording! 🎥
+
+[1]: https://github.com/1820ANKIT2029/Palu-Web            "Palu-Web"
+[2]: https://github.com/1820ANKIT2029/Palu-Desktop        "Palu-Desktop"
+[3]: https://github.com/1820ANKIT2029/Palu-Express      "Palu-Express"
