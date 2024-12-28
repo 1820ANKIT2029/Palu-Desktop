@@ -20,13 +20,15 @@ const WebCam = () => {
     }, [])
 
     return (
-        <video
-            ref={camElement}
-            className='h-screen draggable object-cover rounded-full aspect-video border-2 
-                relative border-white'
-        >
+        <div className="inline-block overflow-hidden rounded-full">
+            <video
+                ref={camElement}
+                className='h-screen draggable object-cover rounded-full aspect-video border-2 
+                    relative'
+            >
 
-        </video>
+            </video>
+        </div>
     )
 }
 

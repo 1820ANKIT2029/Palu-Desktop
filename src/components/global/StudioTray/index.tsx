@@ -28,10 +28,15 @@ const StudioTray = () => {
 
     const videoElement = useRef<HTMLVideoElement | null>(null)
 
-    // useEffect(() => {
-    //     resizeWindow(preview);
-    //     return () => resizeWindow(preview)
-    // }, [preview])
+    useEffect(() => {
+        const resizeWindowHelper = async () => {
+            await resizeWindow(preview);
+        }
+
+        resizeWindowHelper();
+        
+        return () => resizeWindowHelper()
+    }, [preview])
 
     window.ipcRenderer.on('profile-recieved', (event, payload) => {
         console.log(payload)
@@ -71,7 +76,7 @@ const StudioTray = () => {
     return !onSources ? (
         <></>
     ) : (
-        <div className="flex flex-col justify-end gap-y-5 h-screen draggable">
+        <div className="flex flex-col justify-end gap-y-5 h-screen w-screen draggable">
             {preview && (
                 <video
                     autoPlay
@@ -81,7 +86,7 @@ const StudioTray = () => {
             )}
             
             <div
-                className="rounded-full flex justify-around items-center h-20 w-full border-2 bg-[#171717] draggable
+                className="rounded-full flex justify-around items-center h-20 border-2 bg-[#171717] draggable
                 border-white/40"
             >
                 <div 
@@ -103,34 +108,41 @@ const StudioTray = () => {
                     )}
                 </div>
 
-                {!recording ? (
-                    <Pause
-                        className="non-draggable opacity-50"
+                <div>
+                    {!recording ? (
+                        <Pause
+                            className="non-draggable opacity-50"
+                            size={32}
+                            fill="white"
+                            stroke="none"
+                        />
+                        ) : (
+                            <Square 
+                                size={32}
+                                className="non-draggable cursor-pointer hover:scale-110 transform transition duration-150"
+                                fill="white"
+                                onClick={() => {
+                                    setRecording(false)
+                                    clearTime()
+                                    OnStopReconding()
+                                }}
+                                stroke="white"
+                            />
+                    )}
+                </div>
+
+                <div>
+                    <Cast 
+                        onClick={() => setPreview((prev) => !prev)}
                         size={32}
                         fill="white"
-                        stroke="none"
+                        className="non-draggable cursor-pointer hover:opacity-60"
+                        stroke="white"
                     />
-                    ) : (
-                        <Square 
-                            size={32}
-                            className="non-draggable cursor-pointer hover:scale-110 transform transition duration-150"
-                            fill="white"
-                            onClick={() => {
-                                setRecording(false)
-                                clearTime()
-                                OnStopReconding()
-                            }}
-                            stroke="white"
-                        />
-                )}
+                </div>
+                
             
-                <Cast 
-                    onClick={() => setPreview((prev) => !prev)}
-                    size={32}
-                    fill="white"
-                    className="non-draggable cursor-pointer hover:opacity-60"
-                    stroke="white"
-                />
+                
             </div>
         </div>
     )

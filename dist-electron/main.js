@@ -1,4 +1,4 @@
-import { app, ipcMain, desktopCapturer, BrowserWindow } from "electron";
+import { app, ipcMain, desktopCapturer, BrowserWindow, screen } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -11,31 +11,36 @@ let win;
 let studio;
 let floatingWebCam;
 function createWindow() {
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize;
   win = new BrowserWindow({
-    width: 500,
-    height: 600,
-    minHeight: 600,
-    minWidth: 300,
+    width: 300,
+    height: 350,
+    minHeight: 150,
+    minWidth: 200,
+    x: 10,
+    y: 10,
+    transparent: true,
     frame: false,
     hasShadow: false,
-    transparent: true,
     alwaysOnTop: true,
     focusable: false,
     icon: path.join(process.env.VITE_PUBLIC, "palu-logo.svg"),
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      devTools: true,
+      // devTools: true,
       preload: path.join(__dirname, "preload.mjs")
     }
   });
   studio = new BrowserWindow({
-    width: 400,
-    height: 300,
+    width: 200,
+    height: 200,
     minHeight: 70,
-    maxHeight: 400,
-    minWidth: 300,
-    maxWidth: 400,
+    maxHeight: 200,
+    minWidth: 100,
+    maxWidth: 200,
+    x: width / 2 - 50,
+    y: height / 5 * 3,
     frame: false,
     transparent: true,
     alwaysOnTop: true,
@@ -44,17 +49,19 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      devTools: true,
+      // devTools: true,
       preload: path.join(__dirname, "preload.mjs")
     }
   });
   floatingWebCam = new BrowserWindow({
-    width: 400,
-    height: 200,
+    width: 150,
+    height: 150,
     minHeight: 70,
-    maxHeight: 400,
-    minWidth: 300,
-    maxWidth: 400,
+    maxHeight: 200,
+    minWidth: 70,
+    maxWidth: 200,
+    x: width * 4 / 5,
+    y: height / 15,
     frame: false,
     transparent: true,
     alwaysOnTop: true,
@@ -63,7 +70,7 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      devTools: true,
+      // devTools: true,
       preload: path.join(__dirname, "preload.mjs")
     }
   });
