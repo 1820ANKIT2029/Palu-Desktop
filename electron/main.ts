@@ -40,7 +40,7 @@ function createWindow() {
     frame: false,
     hasShadow: false,
     alwaysOnTop: true,
-    focusable: false,
+    focusable: true,
     icon: path.join(process.env.VITE_PUBLIC, 'palu-logo.svg'),
     webPreferences: {
       nodeIntegration: false,
@@ -64,7 +64,7 @@ function createWindow() {
     frame: false,
     transparent: true,
     alwaysOnTop: true,
-    focusable: true,
+    focusable: false,
     icon: path.join(process.env.VITE_PUBLIC, 'palu-logo.svg'),
     webPreferences: {
       nodeIntegration: false,

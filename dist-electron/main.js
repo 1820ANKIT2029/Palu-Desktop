@@ -23,7 +23,7 @@ function createWindow() {
     frame: false,
     hasShadow: false,
     alwaysOnTop: true,
-    focusable: false,
+    focusable: true,
     icon: path.join(process.env.VITE_PUBLIC, "palu-logo.svg"),
     webPreferences: {
       nodeIntegration: false,
