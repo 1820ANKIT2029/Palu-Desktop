@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { SignedOut, SignInButton, SignOutButton } from "@clerk/clerk-react"
+import { SignedOut, SignInButton } from "@clerk/clerk-react"
 
 const AuthButton = () => {
   return (
@@ -13,14 +13,14 @@ const AuthButton = () => {
                     SignIn
                 </Button>
             </SignInButton>
-            <SignOutButton>
+            {/* <SignOutButton>
                 <Button
                     variant='default'
                     className="px-10 rounded-full"
                 >
                     SignOut
                 </Button>
-            </SignOutButton>
+            </SignOutButton> */}
         </div>
     </SignedOut>
   )

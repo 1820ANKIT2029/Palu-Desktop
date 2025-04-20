@@ -11,8 +11,8 @@ type Props = {
 const ControlLayer = ({children, className}: Props) => {
     const [isVisible, setIsVisible] = useState<boolean>(false)
 
-    window.ipcRenderer.on('hide-plugin', (event, payload)=>{
-        console.log(event);
+    window.ipcRenderer.on('hide-plugin', (_, payload)=>{
+        // console.log(event);
         setIsVisible(payload.state)
     })
     return (
@@ -20,10 +20,10 @@ const ControlLayer = ({children, className}: Props) => {
             className={cn(
                 className, 
                 isVisible && 'invisible', 
-                'bg-[#171717] border-2 border-neutral-700 flex px-1 flex-col rounded-3xl overflow-hidden'
+                'bg-[#171717] border-2 border-neutral-700 flex px-1 flex-col rounded-3xl h-full w-full'
             )}
         >
-            <div className='flex justify-between items-center p-5 draggable'>
+            <div className='flex justify-between items-center p-4 draggable'>
                 <span className='non-draggable'>
                     <UserButton />
                 </span>
@@ -37,9 +37,9 @@ const ControlLayer = ({children, className}: Props) => {
                 {children}
             </div>
             <div className='p-5 flex w-full'>
-                <div className='flex items-center gap-x-2'>
-                    <img src='/palu-logo.svg' alt='app logo' />
-                    <p className='text-white text-2xl'>Palu</p>
+                <div className='w-full flex items-center justify-center gap-x-2'>
+                    <img className='logo' src='/palu-logo.svg' alt='app logo' />
+                    <p className='text-white text-3xl'>Palu</p>
                 </div>
             </div>
         </div>

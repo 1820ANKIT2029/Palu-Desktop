@@ -5,39 +5,39 @@ import { fetchUserProfile } from "@/lib/utils";
 import { useMediaSources } from "@/hooks/useMediaSources";
 import MediaConfiguration from "../MediaConfiguration";
 
+interface UserData {
+    status: number;
+    user: {
+        subscription: { plan: 'PRO' | 'FREE' } | null;
+        studio: {
+            id: string;
+            screen: string | null;
+            mic: string | null;
+            preset: 'HD' | 'SD';
+            camera: string | null;
+            userId: string | null;
+        } | null;
+        // The '&' means it *also* includes all properties from the second object
+        id: string;
+        email: string;
+        firstname: string | null;
+        lastname: string | null;
+        createdAt: Date; // Assuming Date object, could also be string if it's a date string
+        clerkId: string;
+        firstView: boolean;
+        image: string | null;
+    } | null; // The entire 'user' property can be null
+}
+
 const Widget = () => {
-    const [profile, setProfile] = useState<{
-        status: number
-        user: 
-          | ({
-                subscription: { plan: 'PRO' | 'FREE' } | null
-                studio: {
-                    id: string
-                    screen: string | null
-                    mic: string | null
-                    preset: 'HD' | 'SD'
-                    camera: string | null
-                    userId: string | null
-                } | null
-            } & {
-                id: string
-                email: string
-                firstname: string | null
-                lastname: string | null
-                createdAt: Date
-                clerkId: string
-                firstView: boolean
-                image: string | null
-            })
-          | null
-    } | null>(null);
-      
-    const {user} = useUser()
+    const [profile, setProfile] = useState<UserData | null>(null);
+
+    const { user } = useUser()
     const { state, fetchMediaResources } = useMediaSources()
 
     useEffect(() => {
-        if(user && user.id){
-            fetchUserProfile(user.id).then((p)=> setProfile(p))
+        if (user && user.id) {
+            fetchUserProfile(user.id).then((p) => setProfile(p))
             fetchMediaResources()
         }
     }, [user])
@@ -52,13 +52,13 @@ const Widget = () => {
 
             <SignedIn>
                 {profile ? (
-                    <MediaConfiguration 
-                        user={profile?.user} 
-                        state={state} 
+                    <MediaConfiguration
+                        user={profile?.user}
+                        state={state}
                     />
                 ) : (
                     <div className="w-full h-full justify-center items=center ">
-                        <Loader color="#fff"/>
+                        <Loader color="#fff" />
                     </div>
                 )}
             </SignedIn>

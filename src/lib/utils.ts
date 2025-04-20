@@ -19,7 +19,7 @@ export const fetchUserProfile = async (clerkId:string) => {
     },
   })
 
-  console.log(response.data)
+  // console.log(response.data)
 
   return response.data
 }
@@ -31,7 +31,7 @@ export const getMediaSources = async () => {
     (device) => device.kind === 'audioinput'
   )
 
-  console.log("getting sources")
+  // console.log("getting sources")
 
   return { displays, audio: audioIputs }
 }

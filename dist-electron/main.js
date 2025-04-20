@@ -14,33 +14,37 @@ function createWindow() {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
   win = new BrowserWindow({
     width: 300,
-    height: 350,
-    minHeight: 150,
-    minWidth: 200,
+    height: 310,
+    minHeight: 50,
+    minWidth: 50,
+    maxHeight: 300,
+    maxWidth: 320,
     x: 10,
     y: 10,
     transparent: true,
     frame: false,
-    hasShadow: false,
+    hasShadow: true,
     alwaysOnTop: true,
     focusable: true,
     icon: path.join(process.env.VITE_PUBLIC, "palu-logo.svg"),
     webPreferences: {
       nodeIntegration: false,
+      // don't allow direct Node.js in renderer
       contextIsolation: true,
+      // very important for security
       // devTools: true,
       preload: path.join(__dirname, "preload.mjs")
     }
   });
   studio = new BrowserWindow({
-    width: 200,
-    height: 200,
-    minHeight: 70,
-    maxHeight: 200,
-    minWidth: 100,
-    maxWidth: 200,
-    x: width / 2 - 50,
-    y: height / 5 * 3,
+    width: 150,
+    height: 60,
+    minHeight: 60,
+    maxHeight: 60,
+    minWidth: 150,
+    maxWidth: 150,
+    x: width / 2 - 75,
+    y: height - 70,
     frame: false,
     transparent: true,
     alwaysOnTop: true,
@@ -60,8 +64,8 @@ function createWindow() {
     maxHeight: 200,
     minWidth: 70,
     maxWidth: 200,
-    x: width * 4 / 5,
-    y: height / 15,
+    x: width - 160,
+    y: 10,
     frame: false,
     transparent: true,
     alwaysOnTop: true,
@@ -80,11 +84,16 @@ function createWindow() {
   studio.setAlwaysOnTop(true, "screen-saver", 1);
   floatingWebCam.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
   floatingWebCam.setAlwaysOnTop(true, "screen-saver", 1);
+  floatingWebCam.setAspectRatio(1 / 1);
+  studio.setAspectRatio(5 / 2);
   win.webContents.on("did-finish-load", () => {
     win == null ? void 0 : win.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
   });
   studio.webContents.on("did-finish-load", () => {
-    studio == null ? void 0 : studio.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
+    studio == null ? void 0 : studio.webContents.send(
+      "main-process-message",
+      (/* @__PURE__ */ new Date()).toLocaleString()
+    );
   });
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL);
@@ -119,27 +128,29 @@ ipcMain.handle("getSources", async () => {
       fetchWindowIcons: true,
       types: ["window", "screen"]
     });
-    console.log(sources);
+    console.log("getSources: ", sources);
     return sources;
   } catch (error) {
     console.error("Error fetching sources:", error);
   }
 });
-ipcMain.on("media-sources", (event, payload) => {
-  console.log(event);
+ipcMain.on("media-sources", (_, payload) => {
   studio == null ? void 0 : studio.webContents.send("profile-recieved", payload);
 });
-ipcMain.on("resize-studio", (event, payload) => {
-  console.log(event);
+ipcMain.on("resize-studio", (_, payload) => {
   if (payload.shrink) {
-    studio == null ? void 0 : studio.setSize(400, 100);
+    studio == null ? void 0 : studio.setMaximumSize(300, 120);
+    studio == null ? void 0 : studio.setMinimumSize(200, 80);
+    studio == null ? void 0 : studio.setSize(300, 120);
+    studio == null ? void 0 : studio.setAspectRatio(5 / 2);
   }
   if (!payload.shrink) {
-    studio == null ? void 0 : studio.setSize(400, 250);
+    studio == null ? void 0 : studio.setMaximumSize(150, 60);
+    studio == null ? void 0 : studio.setMinimumSize(150, 60);
+    studio == null ? void 0 : studio.setSize(150, 60);
   }
 });
-ipcMain.on("hide-plugin", (event, payload) => {
-  console.log(event);
+ipcMain.on("hide-plugin", (_, payload) => {
   win == null ? void 0 : win.webContents.send("profile-recieved", payload);
 });
 app.on("activate", () => {

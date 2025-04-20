@@ -23,7 +23,8 @@ const WebCam = () => {
         <div className="inline-block overflow-hidden rounded-full">
             <video
                 ref={camElement}
-                className='h-screen draggable object-cover rounded-full aspect-video border-2 
+                className='h-screen draggable object-cover rounded-full 
+                    aspect-video border-2 border-violet-950 
                     relative'
             >
 
