@@ -130,8 +130,9 @@ ipcMain.handle("getSources", async () => {
     });
     console.log("getSources: ", sources);
     return sources;
-  } catch (error) {
-    console.error("Error fetching sources:", error);
+  } catch (e) {
+    console.error("Error fetching sources:", e);
+    return { error: true, message: e };
   }
 });
 ipcMain.on("media-sources", (_, payload) => {
@@ -152,6 +153,11 @@ ipcMain.on("resize-studio", (_, payload) => {
 });
 ipcMain.on("hide-plugin", (_, payload) => {
   win == null ? void 0 : win.webContents.send("profile-recieved", payload);
+});
+ipcMain.on("debug", (event, redererName, payload) => {
+  console.log("#############  Debug Request from ", redererName);
+  console.log("Event Name: ", event.sender.id);
+  console.log("payload: ", payload);
 });
 app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) {

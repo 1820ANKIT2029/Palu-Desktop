@@ -27,13 +27,21 @@ export const fetchUserProfile = async (clerkId:string) => {
 export const getMediaSources = async () => {
   const displays = await window.ipcRenderer.invoke('getSources')
   const enumerateDevices = await window.navigator.mediaDevices.enumerateDevices()
-  const audioIputs = enumerateDevices.filter(
+  const audioInputs = enumerateDevices.filter(
     (device) => device.kind === 'audioinput'
   )
 
-  // console.log("getting sources")
+  window.ipcRenderer.send(
+    'debug', 
+    'getMediaSources', 
+    {
+      "Display": JSON.stringify(displays, null, 2),
+      "EnumerateDevice": JSON.stringify(enumerateDevices, null, 2),
+      "AudioInput": JSON.stringify(audioInputs, null, 2)
+    }
+  )
 
-  return { displays, audio: audioIputs }
+  return { displays, audio: audioInputs }
 }
 
 export const updateStudioSettings = async (

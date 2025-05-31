@@ -65,7 +65,7 @@ function createWindow() {
     minWidth: 150,
     maxWidth: 150,
     x: width / 2 - 75,
-    y: height - 70 ,
+    y: height - 70,
     frame: false,
     transparent: true,
     alwaysOnTop: true,
@@ -79,7 +79,7 @@ function createWindow() {
     },
   });
 
-  // window for webcam 
+  // window for webcam
   floatingWebCam = new BrowserWindow({
     width: 150,
     height: 150,
@@ -109,8 +109,8 @@ function createWindow() {
   floatingWebCam.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
   floatingWebCam.setAlwaysOnTop(true, "screen-saver", 1);
 
-  floatingWebCam.setAspectRatio(1/1);
-  studio.setAspectRatio(5/2);
+  floatingWebCam.setAspectRatio(1 / 1);
+  studio.setAspectRatio(5 / 2);
 
   // Test active push message to Renderer-process.
   win.webContents.on("did-finish-load", () => {
@@ -166,13 +166,16 @@ ipcMain.handle("getSources", async () => {
     });
     console.log("getSources: ", sources);
     return sources;
-  } catch (error) {
-    console.error("Error fetching sources:", error);
+  } catch (e) {
+    console.error("Error fetching sources:", e);
+    return { error: true, message: e };
   }
 });
 
 ipcMain.on("media-sources", (_, payload) => {
   // console.log("media-sources: ", event);
+
+  // Sends the payload to a different window ("studio" window)
   studio?.webContents.send("profile-recieved", payload);
 });
 
@@ -182,8 +185,7 @@ ipcMain.on("resize-studio", (_, payload) => {
     studio?.setMaximumSize(300, 120);
     studio?.setMinimumSize(200, 80);
     studio?.setSize(300, 120);
-    studio?.setAspectRatio(5/2);
-
+    studio?.setAspectRatio(5 / 2);
   }
   if (!payload.shrink) {
     studio?.setMaximumSize(150, 60);
@@ -196,6 +198,13 @@ ipcMain.on("hide-plugin", (_, payload) => {
   // console.log("hide-plugin: ", event);
   win?.webContents.send("profile-recieved", payload);
 });
+
+// debugging ipc for renderers
+ipcMain.on("debug", (event, redererName, payload) => {
+  console.log("#############  Debug Request from ", redererName);
+  console.log("Event Name: ", event.sender.id);
+  console.log("payload: ", payload);
+})
 
 app.on("activate", () => {
   // On OS X it's common to re-create a window in the app when the

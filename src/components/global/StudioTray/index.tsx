@@ -13,8 +13,7 @@ const StudioTray = () => {
     const [count, setCount] = useState(0)
 
     const [recording, setRecording] = useState(false)
-    const [onSources, setOnSources] = useState<
-        | {
+    const [onSources, setOnSources] = useState< {
             screen: string
             id: string
             audio: string
