@@ -1,7 +1,7 @@
 import { hidePluginWindow } from "./utils"
 import { v4 as uuid } from 'uuid'
 import { io } from "socket.io-client"
-import { Stream } from "node:stream"
+// import { Stream } from "node:stream"
 
 interface Source {
     screen: string

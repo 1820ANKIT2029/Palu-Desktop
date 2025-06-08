@@ -13,13 +13,13 @@ const StudioTray = () => {
     const [count, setCount] = useState(0)
 
     const [recording, setRecording] = useState(false)
-    const [onSources, setOnSources] = useState< {
-            screen: string
-            id: string
-            audio: string
-            preset: 'HD' | 'SD'
-            plan: 'PRO' | 'FREE'
-        } | undefined
+    const [onSources, setOnSources] = useState<{
+        screen: string
+        id: string
+        audio: string
+        preset: 'HD' | 'SD'
+        plan: 'PRO' | 'FREE'
+    } | undefined
     >(undefined)
 
     const clearTime = () => {
@@ -32,12 +32,17 @@ const StudioTray = () => {
     useEffect(() => {
         const resizeWindowHelper = async () => {
             await resizeWindow(preview);
-        }
+        };
 
         resizeWindowHelper();
 
-        return () => resizeWindowHelper()
-    }, [preview])
+        // Synchronous cleanup wrapper
+        return () => {
+            // Don't `await` here — just call and ignore the Promise
+            resizeWindow(preview).catch(console.error);
+        };
+    }, [preview]);
+
 
     window.ipcRenderer.on('profile-recieved', (_, payload) => {
         setOnSources(payload)
@@ -72,10 +77,10 @@ const StudioTray = () => {
     }, [recording])
 
     useEffect(() => {
-        if(recording && !preview) {
+        if (recording && !preview) {
             setIconSize(25);
         }
-        else{
+        else {
             setIconSize(32);
         }
 
@@ -101,7 +106,7 @@ const StudioTray = () => {
                 {/* Right Column */}
                 <div className="col-span-2 flex flex-col justify-between gap-2 h-full">
                     {/* Timer Box */}
-                    
+
                     {(recording || preview) && (
                         <div className="h-1/2 flex items-center justify-around">
                             <span className="text-red-500 font-bold text-xl">
@@ -109,13 +114,13 @@ const StudioTray = () => {
                             </span>
                         </div>
                     )}
-                    
+
 
                     {/* Controls Box */}
                     <div className={
-                        cn(`border border-black ${(recording || preview) ? 'h-1/2':'h-full'} flex items-center rounded-full 
+                        cn(`border border-black ${(recording || preview) ? 'h-1/2' : 'h-full'} flex items-center rounded-full 
                         justify-around bg-[#171717] border-white/40 draggable`
-                    )}>
+                        )}>
                         {/* Record Button */}
                         <div
                             {...(onSources && {
