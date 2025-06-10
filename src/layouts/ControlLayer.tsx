@@ -38,7 +38,7 @@ const ControlLayer = ({children, className}: Props) => {
             </div>
             <div className='p-5 flex w-full'>
                 <div className='w-full flex items-center justify-center gap-x-2'>
-                    <img className='logo' src='/palu-logo.svg' alt='app logo' />
+                    <img className='logo' src='palu-logo.svg' alt='app logo' />
                     <p className='text-white text-3xl'>Palu</p>
                 </div>
             </div>
