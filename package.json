@@ -1,13 +1,44 @@
 {
   "name": "palu-desktop",
+  "version": "1.0.0",
+
+  "description": "Palu desktop app to record screen",
+
+  "author": "Ankit Kumar <Ankitkuamr00002250908@gmail.com>",
+  "homepage": "https://1820ankit2029.github.io/",
+
+  "license": "MIT",
+  
+  "productName": "Palu Desktop",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && electron-builder",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
+  },
+  "build": {
+    "appId": "1820ANKIT2029@palu-desktop",
+    "productName": "Palu Desktop",
+    "directories": {
+      "output": "release/${version}"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "build/palu-logo.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "build/palu-logo.icns" 
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "build/palu-logo.png"
+    },
+    "extraMetadata": {
+      "main": "dist-electron/main.js"
+    }
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.21.0",
