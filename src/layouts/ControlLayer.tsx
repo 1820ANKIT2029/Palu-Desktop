@@ -20,10 +20,10 @@ const ControlLayer = ({children, className}: Props) => {
             className={cn(
                 className, 
                 isVisible && 'invisible', 
-                'bg-[#171717] border-2 border-neutral-700 flex px-1 flex-col rounded-3xl h-full w-full'
+                'bg-[#171717] border-2 border-neutral-700 flex flex-col rounded-3xl h-full w-full'
             )}
         >
-            <div className='flex justify-between items-center p-4 draggable'>
+            <div className='flex justify-between items-center p-2 draggable h-[60px] mx-3'>
                 <span className='non-draggable'>
                     <UserButton />
                 </span>
@@ -33,10 +33,10 @@ const ControlLayer = ({children, className}: Props) => {
                     onClick={onCloseApp}
                 />
             </div>
-            <div className='flex-1 h-0 overflow-auto'>
+            <div className='flex-1 overflow-auto min-h-0'>
                 {children}
             </div>
-            <div className='p-5 flex w-full'>
+            <div className='h-[60px] p-2 flex w-full'>
                 <div className='w-full flex items-center justify-center gap-x-2'>
                     <img className='logo' src='palu-logo.svg' alt='app logo' />
                     <p className='text-white text-3xl'>Palu</p>

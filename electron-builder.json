@@ -1,43 +1,54 @@
-// @see - https://www.electron.build/configuration/configuration
 {
-  "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
-  "appId": "YourAppID",
+  "appId": "com.palu.desktop",
+  "productName": "Palu Desktop",
+
+  "compression": "maximum",
+  "removePackageScripts": true,
   "asar": true,
-  "productName": "YourAppName",
+
   "directories": {
     "output": "release/${version}"
   },
+
   "files": [
-    "dist",
     "dist-electron"
   ],
+
+  "publish": [
+    {
+      "provider": "github",
+      "owner": "1820ANKIT2029",
+      "repo": "palu-desktop"
+    }
+  ],
+
   "mac": {
-    "target": [
-      "dmg"
-    ],
+    "target": ["dmg"],
+    "icon": "build/palu-logo.icns",
     "artifactName": "${productName}-Mac-${version}-Installer.${ext}"
   },
+
   "win": {
     "target": [
       {
         "target": "nsis",
-        "arch": [
-          "x64"
-        ]
+        "arch": ["x64"]
       }
     ],
+    "icon": "build/palu-logo.ico",
     "artifactName": "${productName}-Windows-${version}-Setup.${ext}"
   },
+
   "nsis": {
     "oneClick": false,
     "perMachine": false,
     "allowToChangeInstallationDirectory": true,
     "deleteAppDataOnUninstall": true
   },
+
   "linux": {
-    "target": [
-      "AppImage"
-    ],
+    "target": ["AppImage"],
+    "icon": "build/palu-logo.png",
     "artifactName": "${productName}-Linux-${version}.${ext}"
   }
 }

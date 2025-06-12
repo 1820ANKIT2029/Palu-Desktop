@@ -43,7 +43,7 @@ const Widget = () => {
     }, [user])
 
     return (
-        <div className="p-5 bg-orange">
+        <div className="p-3 bg-orange">
             <ClerkLoading>
                 <div className="h-full flex justify-center items-center">
                     <Loader />

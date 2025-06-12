@@ -8,45 +8,14 @@
   "productName": "Palu Desktop",
   "private": true,
   "type": "module",
+  "main": "dist-electron/main.js",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && electron-builder",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
-  "build": {
-    "appId": "1820ANKIT2029@palu-desktop",
-    "productName": "Palu Desktop",
-    "compression": "maximum",
-    "removePackageScripts": true,
-    "files": [
-      "dist-electron/**/*",
-      "dist/**/*",
-      "node_modules/**/*",
-      "package.json"
-    ],
-    "directories": {
-      "output": "release/${version}"
-    },
-    "win": {
-      "target": "nsis",
-      "icon": "build/palu-logo.ico"
-    },
-    "mac": {
-      "target": "dmg",
-      "icon": "build/palu-logo.icns"
-    },
-    "linux": {
-      "target": "AppImage",
-      "icon": "build/palu-logo.png"
-    },
-    "extraMetadata": {
-      "main": "dist-electron/main.js"
-    }
-  },
   "dependencies": {
-    "@clerk/chrome-extension": "^2.4.11",
-    "@clerk/clerk-js": "^5.68.0",
     "@clerk/clerk-react": "^5.21.0",
     "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-accordion": "^1.2.2",
@@ -120,6 +89,5 @@
     "vite": "^5.1.6",
     "vite-plugin-electron": "^0.28.6",
     "vite-plugin-electron-renderer": "^0.14.5"
-  },
-  "main": "dist-electron/main.js"
+  }
 }
